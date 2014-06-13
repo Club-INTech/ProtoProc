@@ -65,6 +65,7 @@ Les câblés sont plus rapides que les micro-codés, mais consomment beaucoup de
 ### Instructions microcodées à voir selon le jeu. ###
 - Echange du contenu de deux registres
 - Comparaison suivi d'un saut
+- Instructions sur des booléens
 
 ## Idées ##
 - Il faudrait en plus du processeur et de sa mémoire, une carte son (pour jouer de la musique avec un floppy) et une carte graphique (qui transmet les informations de la mémoire à la matrice de led). Les fréquences de ces trois systèmes ne sont pas forcément les mêmes.
