@@ -7,10 +7,10 @@
 - Martial Costantini
 - Pierre-François Gimenez
 
-## Projet: ##
+# Projet: #
 Concevoir et construire une console de jeu avec des portes logiques.
 
-### Etapes ###
+## Etapes ##
 - concevoir un processeur RISC
 - le réaliser électroniquement
 - écrire un assembleur
@@ -25,11 +25,11 @@ Concevoir et construire une console de jeu avec des portes logiques.
 - Séquenceur
 - Horloge
 
-Eléments à choisir:
+### Eléments à choisir ###
 - Combien de bits? (bits effectivement utilisés + bits de redondance)
 - Quels adressages disponibles?
 
-Matériel utilisé:
+### Matériel utilisé ###
 - transistor
 - portes logiques
 - décodeur ?
