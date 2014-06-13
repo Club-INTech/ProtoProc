@@ -41,12 +41,12 @@ Concevoir et construire une console de jeu avec des portes logiques.
 
 L'avantage avec un processeur lent, c'est que les temps d'accès mémoire se font en un tic d'horloge...
 
-### Jeu d'instructions ###
+## Jeu d'instructions ##
 Si on veut un jeu rapide, il ne faut pas se contenter de quelques instructions mais ajouter des instructions assez haut niveau.
 Il y a deux sortes d'instructions: les câblés (inaltérables) et les micro-codés (programmable).
 Les câblés sont plus rapides que les micro-codés, mais consomment beaucoup de portes logiques.
 
-Instructions câblées:
+### Instructions câblées: ###
 - mov
 - instructions logiques et arithmétiques
 - saut conditionnel (se base sur les flags)
@@ -54,7 +54,7 @@ Instructions câblées:
 - pile? (push, pop, call, ret)
 - nop
 
-Instructions microcodées à voir selon le jeu.
+### Instructions microcodées à voir selon le jeu. ###
 
 ## Idées ##
 - Il faudrait en plus du processeur et de sa mémoire, une carte son (pour jouer de la musique avec un floppy) et une carte graphique (qui transmet les informations de la mémoire à la matrice de led). Les fréquences de ces trois systèmes ne sont pas forcément les mêmes.
