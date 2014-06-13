@@ -36,7 +36,10 @@ Concevoir et construire une console de jeu avec des portes logiques.
 - décodeur ?
 - bascule ?
 - (dé)multiplexeur ?
-- eeprom? (utiliser communication parallèle (http://fr.rs-online.com/web/p/memoires-eeprom/0394504/)
+- eeprom ? (mémoire programme) (utiliser communication parallèle: http://fr.rs-online.com/web/p/memoires-eeprom/0394504/)
+- ram ? (mémoire données. Y'a pas de SDRAM traversant chez RS mais y'a du SRAM: http://fr.rs-online.com/web/p/memoires-sram/0538148/)
+
+L'avantage avec un processeur lent, c'est que les temps d'accès mémoire se font en un tic d'horloge...
 
 ## Idées ##
 - Il faudrait en plus du processeur et de sa mémoire, une carte son (pour jouer de la musique avec un floppy) et une carte graphique (qui transmet les informations de la mémoire à la matrice de led). Les fréquences de ces trois systèmes ne sont pas forcément les mêmes.
