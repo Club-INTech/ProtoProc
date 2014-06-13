@@ -29,6 +29,13 @@ Eléments à choisir:
 - Combien de bits? (bits effectivement utilisés + bits de redondance)
 - Quels adressages disponibles?
 
+Matériel utilisé:
+- transistor
+- portes logiques
+- décodeur ?
+- bascule ?
+- (dé)multiplexeur ?
+
 ## Idées ##
 - Il faudrait en plus du processeur et de sa mémoire, une carte son (pour jouer de la musique avec un floppy) et une carte graphique (qui transmet les informations de la mémoire à la matrice de led). Les fréquences de ces trois systèmes ne sont pas forcément les mêmes.
 - La carte graphique pourrait gérer une matrice de diode pour les images et des afficheurs 7 segments pour les nombres. Voire utiliser un petit écran LCD.
