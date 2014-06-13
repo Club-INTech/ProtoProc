@@ -26,7 +26,7 @@ Concevoir et construire une console de jeu avec des portes logiques.
 - Horloge
 - Contrôleur mémoire
 - Contrôleur d'interruption
-- Bus mastering (pour accès concurrents à une même mémoire)
+- MMU
 
 A se répartir.
 
@@ -40,6 +40,13 @@ A se répartir.
 - Jeu d'instruction? (voir plus bas)
 - Mode idle?
 - Timer? Compteur?
+
+### Proposition ###
+- 3 bits (données) + 2 bits (contrôle par code de Berger)
+- 8 registres accessibles: ACC1, ACC2, SP (?), flags (zero, sign, carry) (?), index high, index low, E/S 1 (ou seulement entrée), E/S 2 (ou seulement sortie)
+- adressage sur 16 bits immédiats
+- adresse sur 16 bits immédiats + 6 bits provenant des deux registres d'index
+
 
 ## Matériel utilisé ##
 - transistor
@@ -67,6 +74,7 @@ Les câblés sont plus rapides que les micro-codés, mais consomment beaucoup de
 
 ### Instructions microcodées à voir selon le jeu. ###
 - Pile ? (push, pop, call, ret)
+- load/store avec index?
 - Echange du contenu de deux registres ?
 - Comparaison suivi d'un saut ?
 - Instructions sur des booléens ?
