@@ -23,6 +23,11 @@ Concevoir et construire une console de jeu avec des portes logiques.
 - ALU (unité arithmétique et logique)
 - Register file
 - Séquenceur
+- Horloge
+
+Eléments à choisir:
+- Combien de bits? (bits effectivement utilisés + bits de redondance)
+- Quels adressages disponibles?
 
 ## Idées ##
 - Il faudrait en plus du processeur et de sa mémoire, une carte son (pour jouer de la musique avec un floppy) et une carte graphique (qui transmet les informations de la mémoire à la matrice de led). Les fréquences de ces trois systèmes ne sont pas forcément les mêmes.
