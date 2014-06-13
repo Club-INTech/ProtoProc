@@ -2,6 +2,7 @@
 
 ## Equipe: ##
 - Dédé Belnet
+- Raoul Bernard
 - Pierre Bourré
 - Martial Costantini
 - Pierre-François Gimenez
@@ -17,3 +18,6 @@ Concevoir et construire une console de jeu avec des portes logiques.
 - écrire un jeu
 - intégrer des éléments extérieurs (écran, manette)
 - jouer
+
+## Idées ##
+- Il faudrait en plus du processeur et de sa mémoire, une carte son (pour jouer de la musique avec un floppy) et une carte graphique (qui transmet les informations de la mémoire à la matrice de led). Les fréquences de ces trois systèmes ne sont pas forcément les mêmes.
