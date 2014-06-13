@@ -24,6 +24,7 @@ Concevoir et construire une console de jeu avec des portes logiques.
 - Register file
 - Séquenceur
 - Horloge
+- Contrôleur mémoire
 
 ### Eléments à choisir ###
 - Combien de bits? (bits effectivement utilisés + bits de redondance)
