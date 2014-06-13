@@ -36,6 +36,7 @@ Concevoir et construire une console de jeu avec des portes logiques.
 - décodeur ?
 - bascule ?
 - (dé)multiplexeur ?
+- eeprom? (utiliser communication parallèle (http://fr.rs-online.com/web/p/memoires-eeprom/0394504/)
 
 ## Idées ##
 - Il faudrait en plus du processeur et de sa mémoire, une carte son (pour jouer de la musique avec un floppy) et une carte graphique (qui transmet les informations de la mémoire à la matrice de led). Les fréquences de ces trois systèmes ne sont pas forcément les mêmes.
