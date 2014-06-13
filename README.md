@@ -25,6 +25,7 @@ Concevoir et construire une console de jeu avec des portes logiques.
 - Séquenceur
 - Horloge
 - Contrôleur mémoire
+- Contrôleur d'interruption
 
 A se répartir.
 
