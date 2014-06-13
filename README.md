@@ -26,6 +26,7 @@ Concevoir et construire une console de jeu avec des portes logiques.
 - Horloge
 - Contrôleur mémoire
 - Contrôleur d'interruption
+- Bus mastering (pour accès concurrents à une même mémoire)
 
 A se répartir.
 
@@ -37,6 +38,8 @@ A se répartir.
 - Combien de bits? (bits effectivement utilisés + bits de redondance)
 - Quels adressages disponibles?
 - Jeu d'instruction? (voir plus bas)
+- Mode idle?
+- Timer? Compteur?
 
 ## Matériel utilisé ##
 - transistor
@@ -63,10 +66,11 @@ Les câblés sont plus rapides que les micro-codés, mais consomment beaucoup de
 - nop
 
 ### Instructions microcodées à voir selon le jeu. ###
-- Echange du contenu de deux registres
-- Comparaison suivi d'un saut
-- Instructions sur des booléens
+- Echange du contenu de deux registres ?
+- Comparaison suivi d'un saut ?
+- Instructions sur des booléens ?
 
 ## Idées ##
+- Un jeu d'instruction dynamique (qui change sans que le processeur ne s'éteigne)
 - Il faudrait en plus du processeur et de sa mémoire, une carte son (pour jouer de la musique avec un floppy) et une carte graphique (qui transmet les informations de la mémoire à la matrice de led). Les fréquences de ces trois systèmes ne sont pas forcément les mêmes.
 - La carte graphique pourrait gérer une matrice de diode pour les images et des afficheurs 7 segments pour les nombres. Voire utiliser un petit écran LCD.
