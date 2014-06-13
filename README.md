@@ -48,7 +48,7 @@ A se répartir.
 - bascule ?
 - (dé)multiplexeur ?
 - eeprom ? (mémoire programme et microcode) (utiliser communication parallèle: http://fr.rs-online.com/web/p/memoires-eeprom/0394504/)
-- ram ? (mémoire données. Y'a pas de SDRAM traversant chez RS mais y'a du SRAM: http://fr.rs-online.com/web/p/memoires-sram/0538148/)
+- ram ? (mémoire données et mémoire de la carte graphique. Y'a pas de SDRAM traversant chez RS mais y'a du SRAM: http://fr.rs-online.com/web/p/memoires-sram/0538148/)
 
 L'avantage avec un processeur lent, c'est que les temps d'accès mémoire se font en un tic d'horloge...
 
