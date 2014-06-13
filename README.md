@@ -57,18 +57,20 @@ Si on veut un jeu rapide, il ne faut pas se contenter de quelques instructions m
 Il y a deux sortes d'instructions: les câblés (inaltérables) et les micro-codés (programmable).
 Les câblés sont plus rapides que les micro-codés, mais consomment beaucoup de portes logiques.
 
-### Instructions câblées: ###
+### Instructions câblée: ###
 - mov
-- instructions logiques et arithmétiques
+- instructions logiques et arithmétiques sur deux registres
 - saut conditionnel (se base sur les flags)
 - saut inconditionnel
-- pile? (push, pop, call, ret)
+- load/store
+- pile? (push d'un registre, pop d'un registre, call, ret)
 - nop
 
 ### Instructions microcodées à voir selon le jeu. ###
 - Echange du contenu de deux registres ?
 - Comparaison suivi d'un saut ?
 - Instructions sur des booléens ?
+- Instructions mémoire-registre ?
 
 ## Idées ##
 - Un jeu d'instruction dynamique (qui change sans que le processeur ne s'éteigne)
