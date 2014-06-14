@@ -44,8 +44,8 @@ A se répartir.
 ### Proposition ###
 - 3 bits (données) + 2 bits (contrôle par code de Berger)
 - 8 registres accessibles: ACC1, ACC2, SP (accessible?), flags (zero, sign, carry) (accessible?), index high, index low, E/S 1 (ou seulement entrée), E/S 2 (ou seulement sortie). Registre nul? (utile pour comparaison à zéro et initialisation)
-- adressage sur 16 bits immédiats
-- adresse sur 16 bits immédiats + 6 bits provenant des deux registres d'index
+- adressage sur 15 bits immédiats (cf largeur du bus de la mémoire ram de RS)
+- adresse sur 15 bits immédiats + 6 bits provenant des deux registres d'index (une adresse du genre 1400 + INDEX)
 
 
 ## Matériel utilisé ##
