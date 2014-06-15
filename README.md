@@ -113,7 +113,21 @@ On aurait:
 ```
 
 
-On perd du temps (les instructions ignorées durent un cycle chacune) mais cela retire en embranchement.
+On perd du temps (les instructions ignorées durent un cycle chacune) mais cela retire en embranchement. Pour les branchements pour lesquels la nopification est impossible (label en arrière ou trop de code à noper), je rappelle qu'il faut toujours ajouter des nops après le branchement afin de ne pas exécuter les instructions en aval.
+
+
+```
+#!Assembleur
+
+    cmp A, 0
+    jz Label1 // saute si A == 0
+    nop
+    nop
+    nop
+    (ABWABWA)
+Label1:
+    (ABWABWABWABWAAAA)
+```
 
 ## Idées ##
 - Un jeu d'instruction dynamique (qui change sans que le processeur ne s'éteigne)
