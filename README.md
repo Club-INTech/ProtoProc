@@ -79,6 +79,29 @@ Les câblés sont plus rapides que les micro-codés, mais consomment beaucoup de
 - Comparaison suivi d'un saut ?
 - Instructions sur des booléens ?
 - Instructions mémoire-registre ?
+- Une instruction de nop'ification qui permettrait de supprimer des branches et de faciliter le travail du pipeline.
+
+Exemple, au lieu de:
+    cmp A, 0
+    jz Label1 (saute si A == 0)
+    mov B, 3
+    mov A, 6
+    jmp Label2
+Label1:
+    mov B, 9
+    mov C, 4
+Label2:
+
+On aurait:
+    cmp A, 0
+    nopz 3 // (si A == 0, ignore les trois prochaines instructions)
+    mov B, 3
+    mov A, 6
+    nop 2  // (ignore les deux prochaines instructions)
+    mov B, 9
+    mov C, 4
+
+On perd du temps (les instructions ignorées durent un cycle chacune) mais cela retire en embranchement.
 
 ## Idées ##
 - Un jeu d'instruction dynamique (qui change sans que le processeur ne s'éteigne)
