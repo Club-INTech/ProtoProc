@@ -82,8 +82,12 @@ Les câblés sont plus rapides que les micro-codés, mais consomment beaucoup de
 - Une instruction de nop'ification qui permettrait de supprimer des branches et de faciliter le travail du pipeline.
 
 Exemple, au lieu de:
+
+```
+#!Assembleur
+
     cmp A, 0
-    jz Label1 (saute si A == 0)
+    jz Label1 // (saute si A == 0)
     mov B, 3
     mov A, 6
     jmp Label2
@@ -91,8 +95,14 @@ Label1:
     mov B, 9
     mov C, 4
 Label2:
+```
+
 
 On aurait:
+
+```
+#!Assembleur
+
     cmp A, 0
     nopz 3 // (si A == 0, ignore les trois prochaines instructions)
     mov B, 3
@@ -100,6 +110,8 @@ On aurait:
     nop 2  // (ignore les deux prochaines instructions)
     mov B, 9
     mov C, 4
+```
+
 
 On perd du temps (les instructions ignorées durent un cycle chacune) mais cela retire en embranchement.
 
