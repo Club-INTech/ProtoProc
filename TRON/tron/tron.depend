@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1416236148 source:c:\users\pf\desktop\tron\tron\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
