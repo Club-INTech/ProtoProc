@@ -1,0 +1,58 @@
+Voici la syntaxe du langage assembleur sans macro.
+Il pourra après être enrichi de macros.
+
+Liste des registres:
+r0 jusqu'à r13 (Les registres 14 et 15, ACC (qui contient la valeur immédiate) et TMP (la mémoire tampon de l'ALU), ne sont pas accessibles directement)
+index0 est un synonyme pour r0
+index1 est un synonyme pour r1
+index2 est un synonyme pour r2
+index3 est un synonyme pour r3
+index4 est un synonyme pour r4
+
+Une valeur immédiate est un nombre entier positif compris entre 0 et 7 (inclus) précédé d'un #.
+Par exemple: #3
+
+Une adresse est un nombre entier positif compris entre 0 et ...
+Par exemple: 220
+
+Les mnémoniques sont:
+mov, movd, movg, inc, dec, cinc, cdec, cxor, cmp, jnz, jmp, rnd
+
+Les opérations licites sont:
+mov REG, IMM
+mov REG1, REG2
+movg [index], REG
+movg REG [index]
+movd [index], REG
+movd REG, [index]
+inc REG
+dec REG
+cinc REG
+cdec REG
+cxor REG
+cmp REG
+jnz ADR
+jmp ADR
+rnd REG
+
+où IMM est une valeur immédiate quelconque, REG, REG1, et REG2 des registres parmi la liste des registres (cf supra), ADR est une adresse quelconque.
+[index] fait partie de la syntaxe et ne peut être modifié.
+
+Macro proposées:
+jnz REG, ADR		cmp REG
+					jnz ADR
+
+Il serait bien de pouvoir utiliser des label. La syntaxe est:
+L_MOT:
+pour créer un label, et
+jmp L_MOT
+pour l'utiliser.
+Un label commence par L_, ne contient pas d'espace ou de symbole (_ est autorisé)o. Par exemple:
+L_BOUCLE
+L_init
+L_Init_Boucle
+
+L'adresse mémoire commence à 0 (à la première instruction). L'adresse mémoire s'incrémente à chaque ligne.
+ATTENTION: même si dans la mémoire programme les instructions prennent 4 octets, l'adresse d'une instruction est son adresse mémoire divisée par 4. De manière à ce que la première ligne ait l'adresse 0, la 2e ligne l'adresse 1, la 3e ligne l'adresse 2, etc.
+
+Il sera probablement nécessaire de faire plusieurs passes dans l'assemblage, afin de pouvoir faire un saut à un label qui se trouve plus loin dans le code.

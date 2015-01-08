@@ -36,69 +36,6 @@ table dw (1 << (LOG_TAILLE_X+LOG_TAILLE_Y+3)) dup (?)
 
 ; pour indices: 100 000 0JJ WWW
 
-joueurs dw 1 << (1+2+2+LOG_LONGUEUR)) dup (?)
-indices dw (NB_JOUEURS) dup (?)
-direction dw (NB_JOUEURS) dup (?)
-ok db FALSE
-dir dw 0, 1, 0, -1, 0
-
-; INITIALISATION
-
-; initialise la table à 0
-
-; index prend les valeurs de 0 à TAILLE_Y*TAILLE_X-1
-mov index, TAILLE_Y*TAILLE_X ; i registre pour parcourir toute la table
-mov base, table ; table est une adresse, constante. Attention, on utilise un OU logique après, il faut donc
-; que l'utilisation des bits soit bien répartie entre l'index et la base
-boucleInitTable:
-dec index
-mov [base|index], 0
-jnz index, boucleInitTable
-
-; générateur d'aléatoire?
-
-; i prend les valeurs de 0 à NB_JOUEURS-1
-mov i, NB_JOUEURS
-bouclePourToutJoueur:
-dec i
-
-; LIGNES 
-
-; j prend les valeurs de 1 à LONGUEUR-1
-mov base1, ((LONGUEUR-1) & 7)+1 ; mot faible de LONGUEUR-1
-mov base2, ((LONGUEUR-1) >> 3)+1 ; mot fort de LONGUEUR-1
-mov base3, i
-
-boucleInitQueue:
-dec base1
-cdec base2		; ne fait la décrémentation que si le dernier résultat a overflow
-
-
-jnz base1, boucleInitQueue
-jnz base2, boucleInitQueue
-; on arrête si le dernier tour fut celui de 0 0
-
-jnz j, boucleInitQueue
-JJ QQQ QQQ AWW
-
-jnz i, bouclePourToutJoueur
-
-
-
-registres:
-i, j, registre de 3 bits
-index, registre de 5*3 bits
-index est le mot de poids faible, jusqu'à index4, le mot de poids fort.
-flags: nul (ou non-nul) = overflow d'incrémentation, overflow dec (vrai si le mot vaut 111)
-
-mov index, 888666444222000
-peut s'écrire en assembleur sans macro:
-mov index0, 000
-mov index1, 222
-mov index2, 444
-mov index3, 666
-mov index4, 888
-
 jnz reg, adr
 peut s'écrire en assembleur sans macro:
 cmp reg : met à jour les flags
@@ -174,8 +111,8 @@ dec index
 dec index
 
 Instructions nécessaires:
-mov ACC, imm
-mov reg, ACC
+//mov ACC, imm
+mov reg, imm
 mov reg1, reg2
 movg [index], reg ; mov graphique: envoie la valeur au processeur graphique
 movg reg, [index] ;
@@ -184,10 +121,11 @@ movd reg, [index] ; mov data
 inc reg
 dec reg
 cinc reg ; conditional incrementation
-cdec reg ; condition decrementation
-cxor (reg) // effectue xor reg, 1 si overflow précédent
+cdec reg ; conditional decrementation
+cxor reg // effectue "xor reg, 1" si overflow précédent (inverse le bit de poids faible)
 cmp reg
 jnz adr
+jnz reg, adr ? (a priori faisable)
 jmp adr
 rnd reg1 ; valeur aléatoire dans reg1 (convertisseur analogique numérique relié à une antenne dont on prend les bits de poids faible)
 
@@ -197,3 +135,44 @@ imm ou reg ou adr (4)
 imm ou reg ou adr (4)
 imm ou reg ou adr (4)
 -> en codant une instruction sur 2 octets, on peut facilement avoir quelque chose de pas mal
+
+Code instruction: (8 bits)
+memoire graphique en écriture et met index sur le bus d'adresse
+memoire graphique en lecture et met index sur le bus d'adresse
+memoire data en écriture
+memoire data en lecture
+program counter en écriture
+annule si overflow précédent (désactive l'écriture)
+commande ALU 1, dirige vers INC/DEC ou NOT
+commande ALU 2, transforme le INC en DEC (DEC REG = ADD REG, (MAX-1))
+
+Registre 1, en écriture (4 bits)
+Registre 2, en lecture pour l'instruction et écriture pour la valeur immédiate (4 bits)
+La valeur immédiate (3 bits)
+Adresse poids fort (5 bits)
+Adresse poids faible (8 bits)
+
+mov reg1 reg2 imm : met imm dans ACC, puis reg2 dans reg1
+c'est-à-dire que:
+mov reg imm est en fait mov reg ACC imm
+mov reg1, reg2 est en fait mov reg1 reg2 0
+movg [index], reg1 est en fait movg ACC, reg1, 0 (avec l'écriture en mémoire graphique activée)
+le 1er registre met à jour les flags, toujours (après sa modification)
+
+Il faut:
+- un bus de commande de 8 bits pour le code d'instruction
+- deux bus d'adresses (un d'écriture, un de lecture) de 3 bits pour les registres
+- un bus de donnée de 3 bits
+
+Exemple de l'exécution d'une instruction:
+lecture du premier octet dans la mémoire programme sur un bus 8 bits
+on met en écriture un registre 8 bits qui contiendra le code d'instruction
+incrémentation de l'IP
+lecture du 2e octet, écriture, incrémentation de l'IP...
+lecture du 3e octet, écriture, incrémentation de l'IP...
+lecture du 4e octet, écriture, incrémentation de l'IP
+
+on met la valeur immédiate dans le bus de donnée, on active l'écriture de ACC
+on met sur le bus de commande les 8 bits de l'instruction
+on met sur le bus d'adresse de lecture le registre 2, ce qui effectue les calculs et stock les résultats dans le registre tampon de l'ALU
+on met sur le bus d'adresse d'écriture le registre 1, on met sur le bus d'adresse en lecture le registre tampon de l'ALU
