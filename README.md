@@ -2,8 +2,6 @@
 
 ## Equipe: ##
 - Dédé Belnet
-- Raoul Bernard
-- Pierre Bourré
 - Martial Costantini
 - Pierre-François Gimenez
 
@@ -30,10 +28,6 @@ Concevoir et construire une console de jeu avec des portes logiques.
 
 A se répartir.
 
-## Détection d'erreur ##
-- Le code de Berger est un exemple de code utilisable. Voir dans "download" pour plus d'infos.
-- Que faire en cas de détection d'erreur? Lever une interruption?
-
 ## Eléments à choisir ##
 - Combien de bits? (bits effectivement utilisés + bits de redondance)
 - Quels adressages disponibles?
@@ -42,7 +36,7 @@ A se répartir.
 - Timer? Compteur?
 
 ### Proposition ###
-- 3 bits (données) + 2 bits (contrôle par code de Berger)
+- 3 bits (données)
 - 8 registres accessibles: ACC1, ACC2, SP (accessible?), flags (zero, sign, carry) (accessible?), index high, index low, E/S 1 (ou seulement entrée), E/S 2 (ou seulement sortie). Registre nul? (utile pour comparaison à zéro et initialisation)
 - adressage sur 15 bits immédiats (cf largeur du bus de la mémoire ram de RS)
 - adresse sur 15 bits immédiats + 6 bits provenant des deux registres d'index (une adresse du genre 1400 + INDEX)
