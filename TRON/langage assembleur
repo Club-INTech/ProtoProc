@@ -1,19 +1,33 @@
 Voici la syntaxe du langage assembleur sans macro.
 Il pourra après être enrichi de macros.
 
-Liste des registres:
-r0 jusqu'à r13 (Les registres 14 et 15, ACC (qui contient la valeur immédiate) et TMP (la mémoire tampon de l'ALU), ne sont pas accessibles directement)
+REGISTRES
+=========
+r0 jusqu'à r15
 index0 est un synonyme pour r0
 index1 est un synonyme pour r1
 index2 est un synonyme pour r2
 index3 est un synonyme pour r3
 index4 est un synonyme pour r4
+inJ1 est un synonyme pour r5
+inJ2 est un synonyme pour r6
+inJ3 est un synonyme pour r7
+inJ4 est un synonyme pour r8
+ACC est un synonyme pour r9
+TMP est un synonyme pour r10
+
+
+VALEURS IMMEDIATES ET ADRESSES
+==============================
 
 Une valeur immédiate est un nombre entier positif compris entre 0 et 7 (inclus) précédé d'un #.
 Par exemple: #3
 
 Une adresse est un nombre entier positif compris entre 0 et ...
 Par exemple: 220
+
+MNEMONIQUES
+===========
 
 Les mnémoniques sont:
 mov, movd, movg, inc, dec, cinc, cdec, cxor, cmp, jnz, jmp, rnd
@@ -38,9 +52,41 @@ rnd REG
 où IMM est une valeur immédiate quelconque, REG, REG1, et REG2 des registres parmi la liste des registres (cf supra), ADR est une adresse quelconque.
 [index] fait partie de la syntaxe et ne peut être modifié.
 
-Macro proposées:
+MACRO
+=====
+
+Macro proposée:
 jnz REG, ADR		cmp REG
 					jnz ADR
+
+(on pourrait en imaginer d'autres...)
+
+DEFINE
+======
+
+Il serait bien de pouvoir avoir des define (par exemple le nombre de joueurs, des paramètres de générations aléatoires, etc.)
+Syntaxe:
+valeur1 EQU valeur2
+Ce serait alors un remplacement syntaxique de "valeur1" par "valeur2"
+Par exemple, si on écrit
+REGISTRE_BOUCLE EQU r0
+mov REGISTRE_BOUCLE, #3
+
+Cela se transformerait en:
+mov r0, #3
+
+Enfin, le mieux serait de pouvoir faire des define qui fasse référence à d'autres define. Comme:
+NB_JOUEURS EQU 2
+VALEUR_MUR EQU (NB_JOUEURS+1)
+
+CALCULS SIMPLES
+===============
+
+Il faudrait qu'on puisse écrire:
+mov r0, 2*3-2
+
+LABELS
+======
 
 Il serait bien de pouvoir utiliser des label. La syntaxe est:
 L_MOT:
@@ -56,3 +102,10 @@ L'adresse mémoire commence à 0 (à la première instruction). L'adresse mémoi
 ATTENTION: même si dans la mémoire programme les instructions prennent 4 octets, l'adresse d'une instruction est son adresse mémoire divisée par 4. De manière à ce que la première ligne ait l'adresse 0, la 2e ligne l'adresse 1, la 3e ligne l'adresse 2, etc.
 
 Il sera probablement nécessaire de faire plusieurs passes dans l'assemblage, afin de pouvoir faire un saut à un label qui se trouve plus loin dans le code.
+
+COMMENTAIRES
+============
+
+Les commentaires sont mono-lignes et commencent pas ';'
+Par exemple:
+mov r3, #4 ; met dans le quatrième registre la valeur 4
