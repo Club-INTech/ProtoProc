@@ -142,9 +142,9 @@ memoire graphique en lecture et met index sur le bus d'adresse
 memoire data en écriture
 memoire data en lecture
 program counter en écriture
-annule si overflow précédent (désactive l'écriture)
-commande ALU 1, dirige vers INC/DEC ou NOT
-commande ALU 2, transforme le INC en DEC (DEC REG = ADD REG, (MAX-1))
+ignore overflow précédent (à donner à l'ALU)
+commande ALU 1, dirige vers INC/DEC ou NOT (1: NOT, 0: INC/DEC)
+commande ALU 2, transforme le INC en DEC (DEC REG = ADD REG, (MAX-1)). (0: DEC, 1: INC)
 
 Registre 1, en écriture (4 bits)
 Registre 2, en lecture pour l'instruction et écriture pour la valeur immédiate (4 bits)
