@@ -123,7 +123,7 @@ dec reg
 cinc reg ; conditional incrementation
 cdec reg ; conditional decrementation
 cxor reg // effectue "xor reg, 1" si overflow précédent (inverse le bit de poids faible)
-cmp reg
+flg reg // met à jour le flag de nullité
 jnz adr
 jnz reg, adr ? (a priori faisable)
 jmp adr
@@ -145,12 +145,15 @@ program counter en écriture
 ignore overflow précédent (à donner à l'ALU)
 commande ALU 1, dirige vers INC/DEC ou NOT (1: NOT, 0: INC/DEC)
 commande ALU 2, transforme le INC en DEC (DEC REG = ADD REG, (MAX-1)). (0: DEC, 1: INC)
-
 Registre 1, en écriture (4 bits)
 Registre 2, en lecture pour l'instruction et écriture pour la valeur immédiate (4 bits)
 La valeur immédiate (3 bits)
 Adresse poids fort (5 bits)
 Adresse poids faible (8 bits)
+
+Peut-être mettant imm et registre 2 au début afin de faire le mov directement?
+
+Pour faire CMP, il faut appeler l'ALU avec ignore overflow = 1, alu1 = 1, alu2 = 0 ou 1.
 
 mov reg1 reg2 imm : met imm dans ACC, puis reg2 dans reg1
 c'est-à-dire que:
@@ -159,7 +162,7 @@ mov reg1, reg2 est en fait mov reg1 reg2 0
 movg [index], reg1 est en fait movg ACC, reg1, 0 (avec l'écriture en mémoire graphique activée)
 le 1er registre met à jour les flags, toujours (après sa modification)
 
-Il faut: 
+Il faut:
 - un bus de commande de 8 bits pour le code d'instruction
 - deux bus d'adresses (un d'écriture, un de lecture) de 3 bits pour les registres
 - un bus de donnée de 3 bits
@@ -179,3 +182,4 @@ on met la valeur immédiate dans le bus de donnée, on active l'écriture de ACC
 on met sur le bus de commande les 8 bits de l'instruction
 on met sur le bus d'adresse de lecture le registre 2, ce qui effectue les calculs et stock les résultats dans le registre tampon de l'ALU
 on met sur le bus d'adresse d'écriture le registre 1, on met sur le bus d'adresse en lecture le registre tampon de l'ALU
+

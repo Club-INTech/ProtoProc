@@ -44,7 +44,7 @@ dec REG
 cinc REG
 cdec REG
 cxor REG
-cmp REG
+flg REG
 jnz ADR
 jmp ADR
 rnd REG
