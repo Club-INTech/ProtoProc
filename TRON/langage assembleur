@@ -3,7 +3,7 @@ Il pourra après être enrichi de macros.
 
 REGISTRES
 =========
-r0 jusqu'à r15
+32 registres, r0 jusqu'à r31
 index0 est un synonyme pour r0
 index1 est un synonyme pour r1
 index2 est un synonyme pour r2
@@ -14,8 +14,7 @@ inJ2 est un synonyme pour r6
 inJ3 est un synonyme pour r7
 inJ4 est un synonyme pour r8
 ACC est un synonyme pour r9
-TMP est un synonyme pour r10
-
+RND est un synonyme pour r10
 
 VALEURS IMMEDIATES ET ADRESSES
 ==============================
@@ -84,6 +83,7 @@ CALCULS SIMPLES
 
 Il faudrait qu'on puisse écrire:
 mov r0, 2*3-2
+Par calcul simple, on comprend l'utilisations des opérations +, *, -, / (division euclidienne) ainsi que l'usage des parenthèses.
 
 LABELS
 ======
@@ -93,13 +93,12 @@ L_MOT:
 pour créer un label, et
 jmp L_MOT
 pour l'utiliser.
-Un label commence par L_, ne contient pas d'espace ou de symbole (_ est autorisé)o. Par exemple:
+Un label commence nécessairemment par L_, ne contient pas d'espace ou de symbole (_ est autorisé)o. Par exemple:
 L_BOUCLE
 L_init
 L_Init_Boucle
 
-L'adresse mémoire commence à 0 (à la première instruction). L'adresse mémoire s'incrémente à chaque ligne.
-ATTENTION: même si dans la mémoire programme les instructions prennent 4 octets, l'adresse d'une instruction est son adresse mémoire divisée par 4. De manière à ce que la première ligne ait l'adresse 0, la 2e ligne l'adresse 1, la 3e ligne l'adresse 2, etc.
+L'adresse mémoire commence à 0 (à la première instruction). L'adresse mémoire s'incrémente à chaque ligne contenant une instruction.
 
 Il sera probablement nécessaire de faire plusieurs passes dans l'assemblage, afin de pouvoir faire un saut à un label qui se trouve plus loin dans le code.
 

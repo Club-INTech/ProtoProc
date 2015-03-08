@@ -1,185 +1,72 @@
-; organisation de la mémoire graphique:
-; XXX XXX XXY YYY YYY -> valeur
-; 
+Quelques infos diverses sur le processeur.
 
-#define LOG_TAILLE_X 8 ; 256
-#define LOG_TAILLE_Y 7 ; 128
-#define LOG_LONGUEUR 2 ; longueur de la queue
-#define TAILLE_Y (1<<LOG_TAILLE_Y) ;hauteur de TAILLE_Y
-#define TAILLE_X (1<<LOG_TAILLE_X) ;largeur de TAILLE_X
-#define LONGUEUR (1<<LOG_LONGUEUR)
-#define NB_JOUEURS 1 ;nb_joueurs
-#define TAILLE_WORD 3 ;nombre de bit dans un mot machine
-#define MUR (NB_JOUEURS+1)
+Bus
+===
 
-#define WORD_PAR_X (LOG_TAILLE_X/TAILLE_WORD)+1
-#define WORD_PAR_Y (LOG_TAILLE_Y/TAILLE_WORD)+1
-; nombre de mots nécessaires pour coder une abscisse ou une ordonnnée
-; par exemple, si on a des mots de 3 bits, et qu'il y a 2^7 = 128 cases en largeur (ou hauteur), il faut 7/3+1=3 mots pour coder l'abscisse (ou l'ordonnée)
-
-; "table" a besoin de 2 valeurs différentes pour juste jouer (vide / plein), mieux vaut NB_JOUEURS+2 valeurs pour l'affichage graphique (1 couleur pour vide, 1 couleur pour plein, 1 couleur par joueur).
-; du coup, il faudrait au moins 3 bits pour stocker chaque valeur
-
-; il y a trois indices: un pour X, un pour Y, un pour le mot désiré
-; l'organisation est faite ainsi: XXXYYY (avec "LOG_TAILLE_X" fois X, "LOG_TAILLE_Y" fois Y)
-; "table" doit être aligné sur une puissance de 2 plus grande que LOG_TAILLE_X + LOG_TAILLE_Y + 3
-
-table dw (1 << (LOG_TAILLE_X+LOG_TAILLE_Y+3)) dup (?)
-
-; joueurs
-; il y a 4 indices dans ce tableau.
-; J: l'indice du joueur, entre 0 et NB_JOUEURS - 1 (max 4 joueurs). Tient sur 2 bits.
-; Q: l'indice de la longueur de la queue, entre 0 et LONGUEUR-1. Tient sur LOG_LONGUEUR bits.
-; W: l'indice à l'intérieur de l'abscisse (ou de l'ordonnée) elle-même, entre 0 et NB_WORD_POUR_POSITION-1. Tient sur 3 bits
-; l'organisation est faite ainsi: JJ   QQQ   QQQ   WWW
-;                                  3     2     1     0
-
-; pour indices: 100 000 0JJ WWW
-
-jnz reg, adr
-peut s'écrire en assembleur sans macro:
-cmp reg : met à jour les flags
-jnz adr : consulte les flags pour sauter
-
-dec reg
-peut s'écrire en assembleur sans macro:
-neg reg
-inc reg
-neg reg
-qui peut encore s'écrire:
-not reg
-inc reg
-inc reg
-not reg
-inc reg
-
-jmp adr
-peut s'écrire en assembleur sans macro:
-cmp reg
-jnz adr
-not reg
-cmp reg
-not red
-jnz adr
-
-jne reg1, reg2, adr
-peut s'écrire en assembleur sans macro:
-mov ACC, reg1
-xor ACC, reg2
-cmp ACC
-jnz adr
-
-or ACC, imm
-peut s'écrire en assembleur sans macro:
-not ACC
-and ACC, ~imm
-not ACC
-
-mov reg, imm
-peut s'écrire en assembleur sans macro:
-mov ACC, imm
-mov reg, ACC
-
-mov [index], reg1:reg2
-qui envoie un double-mot (reg1 poids fort, reg2 poids faible) (little endian)
-peut s'écrire en assembleur sans macro:
-mov [index], reg2
-inc index
-mov [index], reg1
-dec index
-
-mov [index], reg1:reg2:reg3
-qui envoie un triple-mot (reg1 poids fort, reg3 poids faible) (little endian)
-peut s'écrire en assembleur sans macro:
-mov [index], reg3
-inc index
-mov [index], reg2
-inc index
-mov [index], reg1
-dec index
-dec index
-
-mov reg1:reg2:reg3, [index]
-qui lit un triple-mot (reg1 poids fort, reg3 poids faible) (little endian)
-peut s'écrire en assembleur sans macro:
-mov reg3, [index]
-inc index
-mov reg2, [index]
-inc index
-mov reg1, [index]
-dec index
-dec index
-
-Instructions nécessaires:
-//mov ACC, imm
-mov reg, imm
-mov reg1, reg2
-movg [index], reg ; mov graphique: envoie la valeur au processeur graphique
-movg reg, [index] ;
-movd [index], reg ; mov data
-movd reg, [index] ; mov data
-inc reg
-dec reg
-cinc reg ; conditional incrementation
-cdec reg ; conditional decrementation
-cxor reg // effectue "xor reg, 1" si overflow précédent (inverse le bit de poids faible)
-flg reg // met à jour le flag de nullité
-jnz adr
-jnz reg, adr ? (a priori faisable)
-jmp adr
-rnd reg1 ; valeur aléatoire dans reg1 (convertisseur analogique numérique relié à une antenne dont on prend les bits de poids faible)
-
-composition instruction:
-code instruction (4)
-imm ou reg ou adr (4)
-imm ou reg ou adr (4)
-imm ou reg ou adr (4)
--> en codant une instruction sur 2 octets, on peut facilement avoir quelque chose de pas mal
-
-Code instruction: (8 bits)
-memoire graphique en écriture et met index sur le bus d'adresse
-memoire graphique en lecture et met index sur le bus d'adresse
-memoire data en écriture
-memoire data en lecture
-program counter en écriture
-ignore overflow précédent (à donner à l'ALU)
-commande ALU 1, dirige vers INC/DEC ou NOT (1: NOT, 0: INC/DEC)
-commande ALU 2, transforme le INC en DEC (DEC REG = ADD REG, (MAX-1)). (0: DEC, 1: INC)
-Registre 1, en écriture (4 bits)
-Registre 2, en lecture pour l'instruction et écriture pour la valeur immédiate (4 bits)
-La valeur immédiate (3 bits)
-Adresse poids fort (5 bits)
-Adresse poids faible (8 bits)
-
-Peut-être mettant imm et registre 2 au début afin de faire le mov directement?
-
-Pour faire CMP, il faut appeler l'ALU avec ignore overflow = 1, alu1 = 1, alu2 = 0 ou 1.
-
-mov reg1 reg2 imm : met imm dans ACC, puis reg2 dans reg1
-c'est-à-dire que:
-mov reg imm est en fait mov reg ACC imm
-mov reg1, reg2 est en fait mov reg1 reg2 0
-movg [index], reg1 est en fait movg ACC, reg1, 0 (avec l'écriture en mémoire graphique activée)
-le 1er registre met à jour les flags, toujours (après sa modification)
-
-Il faut:
 - un bus de commande de 8 bits pour le code d'instruction
-- deux bus d'adresses (un d'écriture, un de lecture) de 3 bits pour les registres
-- un bus de donnée de 3 bits
+- deux bus d'adresses (un d'écriture, un de lecture) de 5 bits pour les registres
+- un bus de données de 3 bits en entrée d'ALU
+- un bus de données de 3 bits en sortie d'ALU
+- un bus de données de 3 bits qui relie l'instruction au registre ACC (explication plus bas)
 - un bus d'adresse de 15bits pour la mémoire graphique
 - un bus d'adresse de 12bits pour la mémoire vive
 - un bus de données de 8bits pour la mémoire programme
 
-Exemple de l'exécution d'une instruction:
-lecture du premier octet dans la mémoire programme sur un bus 8 bits
-on met en écriture un registre 8 bits qui contiendra le code d'instruction
-incrémentation de l'IP
-lecture du 2e octet, écriture, incrémentation de l'IP...
-lecture du 3e octet, écriture, incrémentation de l'IP...
-lecture du 4e octet, écriture, incrémentation de l'IP
 
-on met la valeur immédiate dans le bus de donnée, on active l'écriture de ACC
-on met sur le bus de commande les 8 bits de l'instruction
-on met sur le bus d'adresse de lecture le registre 2, ce qui effectue les calculs et stock les résultats dans le registre tampon de l'ALU
-on met sur le bus d'adresse d'écriture le registre 1, on met sur le bus d'adresse en lecture le registre tampon de l'ALU
+Décodage d'une instruction
+==========================
 
+Une instruction est structurée en différentes parties
+
+instruction reg1 immediate reg2 adresse
+
+Avec instruction un code d'instruction sur 8 bits
+reg1 le numéro d'un registre sur 5 bits
+immediate une valeur immédiate sur 3 bits
+reg2 le numéro d'un registre sur 5 bits
+adresse une adresse en mémoire programme sur 11 bits
+
+Pour chaque instructions, ces opérations sont faites:
+- on met immediate dans le registre ACC
+- on utilise le code d'instruction pour préparer l'alu et les bus
+- on met reg1 dans l'alu, on récupère son contenu qu'on met dans reg2
+- on effectue un saut relatif de "adresse" si le flag "zero" est actif
+
+A mon avis, le plus simple est de lire 4 octets d'un coup et de faire ces opérations parallèlement.
+Pour faire ces opérations manuellement, il faut que chaque bus soit utilisé au plus pour une de ces opérations. Cela signifie que la première étape (ACC <- immediate) ne peut pas utiliser le bus d'écriture habituel des registres.
+Côté mémoire programme, il y a deux moyens de faire cette parallélisation. Soit avec une mémoire et un petit circuit qui lit séquentiellement les quatre octets, soit quatre mémoires afin de lire parallèlement tout ça.
+Je suggère la seconde solution, qui permettra surtout d'avoir un schéma simple. Par exemple, dans la mémoire programme 1, il y aura que des codes d'instructions. Dans la mémoire 2, reg1 et immediate. Etc.
+Ainsi, une instruction complète sera codée à une certaine adresse A, et se trouvera en partie sur la mémoire programme 1 à l'adresse A, en partie sur la mémoire programme 2 à l'adresse A, etc.
+Ceci permet aussi de simplifier l'incrémentation du pointeur d'instruction, qui ne montera à chaque fois que d'une unité et non de quatre.
+
+
+Code instruction
+===============
+
+A chaque ligne correspond un bit du code d'instruction.
+Il s'agit d'un RISC: des combinaisons sont impossibles.
+Le décodage est facile, car il suffit de brancher chaque bit au bon câble, il n'y a pas de calcul à faire.
+
+memoire graphique en écriture et met index sur le bus d'adresse
+memoire graphique en lecture et met index sur le bus d'adresse
+memoire data en écriture
+memoire data en lecture
+(program counter en écriture) (inutile?)
+ignore overflow précédent (à donner à l'ALU)
+commande ALU 1, dirige vers INC/DEC ou NOT (1: NOT, 0: INC/DEC)
+commande ALU 2, transforme le INC en DEC. (0: DEC, 1: INC)
+
+De plus, pour faire CMP, il faut appeler l'ALU avec ignore overflow = 1, alu1 = 1, alu2 = 0 ou 1.
+
+
+Ce qu'il faut dans le processeur
+================================
+
+Il faut:
+- une ALU (faite)
+- un décodeur d'instruction (cf plus haut, avec 4 mémoires, ce décodeur n'aura peut-être même pas de portes logiques, que des fils)
+- le registre IP (instruction pointer), qui est un registre particulier qui s'incrémente à chaque instruction. C'est un registre 8 bits.
+- l'horloge
+- des registres
+- des bus
+- une interface avec une "carte graphique" (comprendre une arduino)
