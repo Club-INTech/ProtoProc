@@ -51,6 +51,8 @@ rnd REG
 où IMM est une valeur immédiate quelconque, REG, REG1, et REG2 des registres parmi la liste des registres (cf supra), ADR est une adresse quelconque.
 [index] fait partie de la syntaxe et ne peut être modifié.
 
+movd peut accepter que REG soit sur plus que 3 bits, la syntaxe est alors: REG1.REG2.REG3 etc...
+
 MACRO
 =====
 

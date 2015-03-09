@@ -1,11 +1,9 @@
-﻿<mui:ModernWindow
+﻿<mui:ModernWindow x:Class="ModernUIApp1.MainWindow"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="ModernUIApp1.MainWindow"
                   Title="MacroProcesseur Editor" 
-                  d:DesignWidth="794" d:DesignHeight="185"
-                  Closing="CancelEventHandler" Width="600" Height="800">
+                  Style="{StaticResource BlankWindow}">
     <mui:ModernWindow.Resources>
         <Style x:Key="ComboBoxStyleModern" TargetType="{x:Type ComboBox}">
             <Setter Property="Foreground" Value="{DynamicResource InputText}"/>
@@ -208,32 +206,10 @@
 
 
 
-    <mui:ModernWindow.Style>
-        <StaticResource ResourceKey="BlankWindow"/>
-    </mui:ModernWindow.Style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <mui:ModernWindow.CommandBindings>
+    <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Open" Executed="Open_Executed" />
         <CommandBinding Command="ApplicationCommands.Save" Executed="Save_Executed" />
-    </mui:ModernWindow.CommandBindings>
+    </Window.CommandBindings>
     <DockPanel>
         <ToolBar DockPanel.Dock="Top" Style="{DynamicResource ToolBarStyleMetro}">
             <Button Command="ApplicationCommands.Open">
@@ -261,28 +237,34 @@
         
          -->
         </ToolBar>
-        <ScrollViewer>
+        <ScrollViewer Width="719">
             <Grid>
-                <RichTextBox x:Name="lineNumbers" 
-					SelectionChanged="rtbEditor_SelectionChanged"  
-					ScrollViewer.CanContentScroll="True" 
-					AcceptsReturn="True" 
-					Style="{DynamicResource RichTextBoxStyleMetro}" Width="70" HorizontalAlignment="Left"
-                             >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="281*"/>
+                    <RowDefinition Height="196*"/>
+                </Grid.RowDefinitions>
+                <RichTextBox Name="lineNumbers" 
+                         SelectionChanged="rtbEditor_SelectionChanged"  
+                         ScrollViewer.CanContentScroll="True" 
+                         ScrollViewer.VerticalScrollBarVisibility="Visible"
+                         AcceptsReturn="True" 
+                         AcceptsTab="True"
+                         TextChanged="TextChangedEventHandler"
+                         Style="{DynamicResource RichTextBoxStyleMetro}" Grid.RowSpan="2" Margin="-20,0,672,0">
                     <RichTextBox.Resources>
                         <Style TargetType="{x:Type Paragraph}">
                             <Setter Property="Margin" Value="0"/>
                         </Style>
                     </RichTextBox.Resources>
                 </RichTextBox>
-                <RichTextBox x:Name="rtbEditor" 
-					SelectionChanged="rtbEditor_SelectionChanged"  
-					ScrollViewer.CanContentScroll="True" 
-					ScrollViewer.VerticalScrollBarVisibility="Visible"
-					AcceptsReturn="True" 
-					AcceptsTab="True"
-					TextChanged="TextChangedEventHandler"
-					Style="{DynamicResource RichTextBoxStyleMetro}" Margin="70,0,0,0">
+                <RichTextBox Name="rtbEditor" 
+                         SelectionChanged="rtbEditor_SelectionChanged"  
+                         ScrollViewer.CanContentScroll="True" 
+                         ScrollViewer.VerticalScrollBarVisibility="Visible"
+                         AcceptsReturn="True" 
+                         AcceptsTab="True"
+                         TextChanged="TextChangedEventHandler"
+                         Style="{DynamicResource RichTextBoxStyleMetro}" Grid.RowSpan="2" Margin="52,0,-19,10">
                     <RichTextBox.Resources>
                         <Style TargetType="{x:Type Paragraph}">
                             <Setter Property="Margin" Value="0"/>

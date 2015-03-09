@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Debug\
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Release\
 MacroProcIDE_MUI
 none
 false
-DEBUG;TRACE
+TRACE
 D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\App.xaml
 21739889551
 
-9-1067229019
+9-176746504
 161680678411
 MainWindow.xaml;WaitingWindow.xaml;
 

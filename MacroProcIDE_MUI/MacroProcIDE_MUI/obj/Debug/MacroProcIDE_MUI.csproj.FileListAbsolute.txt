@@ -11,3 +11,5 @@ D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE
 D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Debug\MacroProcIDE_MUI.exe
 D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Debug\MacroProcIDE_MUI.pdb
 D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Debug\MacroProcIDE_MUI.csprojResolveAssemblyReference.cache
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Debug\WaitingWindow.baml
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Debug\WaitingWindow.g.cs

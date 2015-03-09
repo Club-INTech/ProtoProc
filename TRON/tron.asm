@@ -14,7 +14,7 @@ XY4 EQU r7
 ; INITIALISATION
 
 ; nécessaire pour "ok"
-mov reg8, #1
+mov r8, #1
 
 ; on remet à la table à 0
 mov index0, #0
@@ -54,8 +54,8 @@ rnd index1
 rnd index2
 rnd index3
 rnd index4
-movg reg1, [index]
-jnz reg1, boucleInitPositionJoueur
+movg r1, [index]
+jnz r1, boucleInitPositionJoueur
 movg [index], JOUEUR_ACTUEL
 mov r1, index0
 mov r2, index1
@@ -102,96 +102,96 @@ dec index0
 mov index1, INDICE_LOW
 mov index2, INDICE_HIGH
 mov index3, JOUEUR_ACTUEL
-movd reg7:reg6:reg5:reg4:reg3, [index] ; ils contiennent les anciennes valeurs de X et Y
+movd r7.r6.r5.r4.r3, [index] ; ils contiennent les anciennes valeurs de X et Y
 
-inc reg1
-cinc reg2 // incrémentation de indice[i]
+inc r1
+cinc r2 // incrémentation de indice[i]
 // le modulo est automatique
 
 mov index0, 0
 mov index1, JOUEUR_ACTUEL
 mov index2, 0
 mov index3, 4
-movd [index], reg2:reg1 // on enregistre la nouvelle valeur
+movd [index], r2.r1 // on enristre la nouvelle valeur
 
-jnz reg3, pasNouveauOk
-jnz reg2, pasNouveauOk
-mov reg8, 0 // nul: ok est vrai
-// (ne pas oublier d'initialiser reg10 à une valeur non nulle)
+jnz r3, pasNouveauOk
+jnz r2, pasNouveauOk
+mov r8, 0 // nul: ok est vrai
+// (ne pas oublier d'initialiser r10 à une valeur non nulle)
 
 pasNouveauOk:
-jnz reg8, pasOk
+jnz r8, pasOk
 
 mov index0, 0
-mov index1, reg2
-mov index2, reg3
+mov index1, r2
+mov index2, r3
 mov index3, JOUEUR_ACTUEL
 movd index, [index] // on récupère l'abscisse à cet indice
 movg [index], 0 // et on y met 0
 
 pasOk: // on a fini la condition
 
-mov reg1, INJ1 // input joueur 1
-jnz reg1, pas0
+mov r1, INJ1 // input joueur 1
+jnz r1, pas0
 
 //00 : HAUT
-inc reg3
-cinc reg4
-cxor reg5
+inc r3
+cinc r4
+cxor r5
 jmp finCondition
 
 pas0:
-dec reg1
-jnz reg1, pas1
+dec r1
+jnz r1, pas1
 //01 : BAS
-dec reg3
-cdec reg4
-cxor reg5, 1
+dec r3
+cdec r4
+cxor r5, 1
 jmp finCondition
 
 pas1:
-dec reg1
-jnz reg1, pas2
+dec r1
+jnz r1, pas2
 //10 : GAUCHE
-dec reg5
-cdec reg6
-cdec reg7
-dec reg5
-cdec reg6
-cdec reg7
+dec r5
+cdec r6
+cdec r7
+dec r5
+cdec r6
+cdec r7
 jmp finCondition
 
 pas2:
 // du coup, c'est forcément 3
 //11 : DROITE
-inc reg5
-cinc reg6
-cinc reg7
-inc reg5
-cinc reg6
-cinc reg7
+inc r5
+cinc r6
+cinc r7
+inc r5
+cinc r6
+cinc r7
 
 finCondition:
 
 mov index0, 0
-mov index1, reg2
-mov index2, reg3
+mov index1, r2
+mov index2, r3
 mov index3, JOUEUR_ACTUEL
 
-movd [index], reg7:reg6:reg5:reg4:reg3
+movd [index], r7.r6.r5.r4.r3
 
-mov index0, reg3
-mov index1, reg4
-mov index2, reg5
-mov index3, reg6
-mov index4, reg7
+mov index0, r3
+mov index1, r4
+mov index2, r5
+mov index3, r6
+mov index4, r7
 
-movg reg1, [index]
+movg r1, [index]
 jnz finJeu
 
-mov reg2, JOUEUR_ACTUEL
-inc reg2
-movg [index], reg2
+mov r2, JOUEUR_ACTUEL
+inc r2
+movg [index], r2
 
 jnz JOUEUR_ACTUEL, boucleInitJoueurs
 mov JOUEUR_ACTUEL, NB_JOUEURS

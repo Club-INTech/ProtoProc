@@ -17,29 +17,22 @@ using System.IO;
 using Microsoft.Win32;
 using MacroProcIDE_MUI;
 using System.Diagnostics;
-using System.ComponentModel;
 
 namespace ModernUIApp1
 {
 
     public partial class MainWindow : ModernWindow
     {
-        WaitingWindow mWaitingWindow;
         public MainWindow()
         {
             mswatch = new Stopwatch();
             mswatch.Start();
             InitializeComponent();
-            mWaitingWindow = new WaitingWindow();
-            mWaitingWindow.Hide();
            // cmbFontFamily.ItemsSource = Fonts.SystemFontFamilies.OrderBy(f => f.Source);
           //  cmbFontSize.ItemsSource = new List<double>() { 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
         }
+        
 
-        private void CancelEventHandler(object sender, CancelEventArgs e)
-        {
-            mWaitingWindow.Close();
-        }
 
         private void rtbEditor_SelectionChanged(object sender, RoutedEventArgs e)
         {
@@ -62,13 +55,9 @@ namespace ModernUIApp1
             dlg.Filter = "Abwabwa File (*.asm)|*.asm|All files (*.*)|*.*";
             if (dlg.ShowDialog() == true)
             {
-
-                mWaitingWindow.Show();
                 FileStream fileStream = new FileStream(dlg.FileName, FileMode.Open);
                 TextRange range = new TextRange(rtbEditor.Document.ContentStart, rtbEditor.Document.ContentEnd);
                 range.Load(fileStream, DataFormats.Text);
-
-                mWaitingWindow.Hide();
             }
         }
 
@@ -310,40 +299,20 @@ namespace ModernUIApp1
 
         }
 
-        int lastLineCount;
         private void printLineNumbers()
         {
-            int linecount = rtbEditor.Document.Blocks.Count;
-            if (linecount == lastLineCount)
-                return;
-            if (linecount > lastLineCount)
-            {
+            // compte les lignes du ficher
+            Int32 linecount = -1;
+            TextPointer oldCaret = rtbEditor.CaretPosition;
+            rtbEditor.CaretPosition = rtbEditor.Document.ContentStart;
+            while (rtbEditor.CaretPosition.GetLineStartPosition(++linecount) != null)
+            { }
+            rtbEditor.CaretPosition = oldCaret;
 
-                StringBuilder sb = new StringBuilder();
-                for (int i = lastLineCount+1; i < linecount + 1; i++)
-                {
-                    sb.Append(Convert.ToString(i));
-                    sb.Append("\n");
-                }
-                lineNumbers.AppendText(sb.ToString());
-            }
-            else
-            {
-                lineNumbers.Document.Blocks.Clear();
-
-                StringBuilder sb = new StringBuilder();
-                for (int i = 1; i < linecount + 1; i++)
-                {
-                    sb.Append(Convert.ToString(i));
-                    sb.Append("\n");
-                }
-                sb.Append("\n");
-                lineNumbers.AppendText(sb.ToString());
-            }
-
-            TextRange range = new TextRange(lineNumbers.Document.ContentStart, lineNumbers.Document.ContentEnd);
-            range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromRgb(135, 135, 230)));
-            lastLineCount = linecount;
+            // affiche ces lignes sur le coté
+            lineNumbers.Document.Blocks.Clear();
+            for (int i = 1; i < linecount + 1; i++)
+                lineNumbers.AppendText(Convert.ToString(i) + "\n");
         }
     }
 }
