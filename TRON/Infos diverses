@@ -10,7 +10,7 @@ Bus
 - un bus de données de 3 bits qui relie l'instruction au registre ACC (explication plus bas)
 - un bus d'adresse de 15bits pour la mémoire graphique
 - un bus d'adresse de 12bits pour la mémoire vive
-- un bus de données de 8bits pour la mémoire programme
+- quatre bus de données de 8bits pour la mémoire programme (un par mémoire programme)
 
 
 Décodage d'une instruction
