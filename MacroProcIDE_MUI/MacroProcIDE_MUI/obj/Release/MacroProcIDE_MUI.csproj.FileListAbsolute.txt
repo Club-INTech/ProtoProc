@@ -1,0 +1,14 @@
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\bin\Release\MacroProcIDE_MUI.exe
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\bin\Release\MacroProcIDE_MUI.pdb
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\bin\Release\FirstFloor.ModernUI.dll
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\bin\Release\FirstFloor.ModernUI.xml
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Release\MainWindow.baml
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Release\WaitingWindow.baml
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Release\App.baml
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Release\MainWindow.g.cs
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Release\WaitingWindow.g.cs
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Release\App.g.cs
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Release\MacroProcIDE_MUI_MarkupCompile.cache
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Release\MacroProcIDE_MUI.g.resources
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Release\MacroProcIDE_MUI.exe
+D:\Documents\INTech\MacroProcesseur\Repo\protoproc\MacroProcIDE_MUI\MacroProcIDE_MUI\obj\Release\MacroProcIDE_MUI.pdb
