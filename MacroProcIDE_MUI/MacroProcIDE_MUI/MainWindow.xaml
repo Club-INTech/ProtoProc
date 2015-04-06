@@ -243,6 +243,13 @@
                 <Image Source="Save_6530.png" Width="16" Height="16" />
             </Button>
 
+            <Separator />
+            <Button Click="assemble" Name="btnAssemble">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Larger_225.png" Width="16" Height="16" />
+                    <TextBlock Padding="5 0" Foreground="#FFE0E0E0">  Build</TextBlock>
+                </StackPanel>
+            </Button>
             <!--      
             
             <Separator />
@@ -275,6 +282,8 @@
                         </Style>
                     </RichTextBox.Resources>
                 </RichTextBox>
+                
+                
                 <RichTextBox x:Name="rtbEditor" 
 					SelectionChanged="rtbEditor_SelectionChanged"  
 					ScrollViewer.CanContentScroll="True" 

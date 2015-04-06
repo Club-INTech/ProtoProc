@@ -345,5 +345,10 @@ namespace ModernUIApp1
             range.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Color.FromRgb(135, 135, 230)));
             lastLineCount = linecount;
         }
+        private void assemble(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
+
 }
