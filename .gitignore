@@ -1,3 +1,4 @@
 *~
 ./Eagle/*.b#*
 ./Eagle/*.s#*
+./Benchmarks/*/.metadata
