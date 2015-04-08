@@ -18,19 +18,19 @@ Décodage d'une instruction
 
 Une instruction est structurée en différentes parties
 
-instruction reg1 immediate reg2 adresse
+instruction reg1 reg2 immediate adresse
 
 Avec instruction un code d'instruction sur 8 bits
-reg1 le numéro d'un registre sur 5 bits
+reg1 le numéro d'un registre sur 4 bits	 (on n'a besoin que de 10 registres et 2^4 = 16)
+reg2 le numéro d'un registre sur 4 bits  (on n'a besoin que de 10 registres et 2^4 = 16)
 immediate une valeur immédiate sur 3 bits
-reg2 le numéro d'un registre sur 5 bits
-adresse une adresse en mémoire programme sur 11 bits
+adresse une adresse en mémoire programme sur 13 bits
 
 Pour chaque instructions, ces opérations sont faites:
 - on met immediate dans le registre ACC
 - on utilise le code d'instruction pour préparer l'alu et les bus
 - on met reg1 dans l'alu, on récupère son contenu qu'on met dans reg2
-- on effectue un saut relatif de "adresse" si le flag "zero" est actif
+- on effectue un saut ABSOLU à "adresse" si le flag "zero" est actif
 
 A mon avis, le plus simple est de lire 4 octets d'un coup et de faire ces opérations parallèlement.
 Pour faire ces opérations manuellement, il faut que chaque bus soit utilisé au plus pour une de ces opérations. Cela signifie que la première étape (ACC <- immediate) ne peut pas utiliser le bus d'écriture habituel des registres.
